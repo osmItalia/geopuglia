@@ -1,0 +1,126 @@
+/* Global */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+input, textarea, select {
+   border: 1px solid #555;
+   padding: 0.5em;
+   font-size: 11px;
+   line-height: 1.2em;
+   background: #fff;
+   background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+   -webkit-appearance: none;
+   -webkit-box-shadow: 1px 1px 1px #fff;
+   -webkit-border-radius: 0.5em;
+ }
+
+/*end global*/
+
+#map {
+	height: 300px;
+	width: 100%;
+	display: block;
+}
+#panel_closed {
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	right: 20px;
+	top: -1px;
+	background: #ffffff;
+	z-index: 999;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	box-shadow: 0 0 8px 2px #000000
+}
+#arrow_down {
+	height: 15px;
+	width: 15px;
+	display: block;
+	float: right;
+	cursor: pointer;
+	padding-top: 3px;
+	padding-right: 3px;
+}
+#panel {
+	height: 300px;
+	width: 350px;
+	padding-left: 5px;
+	position: absolute;
+	right: 5px;
+	top: -1px;
+	background: #ffffff;
+	z-index: 1000;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	box-shadow: 0 0 8px 2px #000000;
+	font-size: 0.85em;
+}
+
+#panel_header {
+	height: 10px;
+	width: 100%;
+}
+
+#panel h2 {
+	font-size: 0.9em;
+}
+
+#arrow_up {
+	height: 15px;
+	width: 15px;
+	display: block;
+	float: right;
+	cursor: pointer;
+	padding-top: 3px;
+	padding-right: 3px;
+}
+
+.layerSelect {
+	width: 340px;
+}
+
+/* OpenLayers style overriding*/
+.olControlAttribution {
+	bottom: 0px !important;
+	right: 0px !important;
+	background: none repeat scroll 0 0 rgba(255, 255, 255, 0.7);
+	padding: 3px 3px;
+	color: #000000;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+}
+div.olControlZoom a {
+	background: none repeat scroll 0 0 rgba(143, 146, 145, 0.8) !important;
+}
+div.olControlZoom a:hover {
+	background: none repeat scroll 0 0 rgba(60, 63, 62, 0.8) !important;
+}
+fieldset {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	padding: 2px;
+}
+legend {
+	display: block;
+	margin-left: 3px;
+	padding-top: 2px;
+	text-shadow: 2px 2px 3px rgba(150, 150, 150, 0.75);
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: .9em;
+}
+.inline {
+	display: inline-block;
+}

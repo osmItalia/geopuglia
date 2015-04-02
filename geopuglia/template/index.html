@@ -1,0 +1,29 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html html lang="it">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css">
+		<link rel="stylesheet" href="{% static "css/pepper-grinder/jquery-ui-1.10.1.custom.min.css" %}" type="text/css">
+		<script src="{% static "js/jquery-1.9.1.js" %}" type="text/javascript" charset="utf-8"></script>
+		<script src="{% static "js/jquery-ui-1.10.1.custom.min.js" %}" type="text/javascript" charset="utf-8"></script>
+		<script src="{% static "js/OpenLayers.js" %}" type="text/javascript" charset="utf-8"></script>
+		<script src="{% static "js/GeoPuglia.js" %}" type="text/javascript" charset="utf-8"></script>
+		<script src="{% static "js/base.js" %}" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		<div id="map"></div>
+		<div id="panel_closed">
+			<img id='arrow_down' src="{% static "image/arrow_down.png" %}" />
+		</div>
+		<div id="panel">
+			<div id="panel_header">
+				<img id='arrow_up' src="{% static "image/arrow_up.png" %}" />
+			</div>
+		</div>
+	</body>
+</html>
+
