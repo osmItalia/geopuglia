@@ -1,4 +1,5 @@
-Django==1.8c1
-django-configurations==0.8
+Django==1.8
+git+https://github.com/jezdez/django-configurations.git
+dj-database-url==0.3.0
 psycopg2==2.6
 
