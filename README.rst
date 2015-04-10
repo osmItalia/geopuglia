@@ -2,6 +2,13 @@
 GeoPuglia
 =========
 
+.. image:: https://travis-ci.org/sdonk/geopuglia.svg?branch=master
+    :target: https://travis-ci.org/sdonk/geopuglia
+
+.. image:: https://readthedocs.org/projects/geopuglia/badge/?version=latest
+    :target: https://readthedocs.org/projects/geopuglia/?badge=latest
+    :alt: Documentation Status
+
 Let's have fun with Puglia_  geographical data_.
 
 Documentation_
