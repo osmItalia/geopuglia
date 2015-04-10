@@ -7,7 +7,7 @@ install:
     - "pip install -r requirements/test.txt"
 
 script:
-    - py.test -v --cov geopuglia --cov-report term-missing
+    - py.test -v
 
 after_success:
-    - coveralls
+    - coveralls -c .coveragerc
