@@ -25,20 +25,21 @@ def test_build_url(tavoletta, expected_result):
         assert isinstance(url_to_test, str)
 
 
-@mock.patch('__builtin__.open')
 @mock.patch('core.sit_puglia_utils.requests')
-def test_download_and_save_response_ok(mocked_requests, mocked_open):
+def test_download_and_save_response_ok(mocked_requests, ):
     mocked_requests.get.return_value = mock.MagicMock(ok=True)
-    download_and_save(TEST_FILE_URL)
-    mocked_requests.get.assert_called_once_with(TEST_FILE_URL, stream=True)
-    assert mocked_open.assert_called_once_with('./downloads/test.zip', "wb")
+    m = mock.mock_open()
+    with mock.patch('__builtin__.open', m, create=True):
+        download_and_save(TEST_FILE_URL)
+        mocked_requests.get.assert_called_once_with(TEST_FILE_URL, stream=True)
+        m.assert_called_once_with('./downloads/test.zip', "wb")
 
 
-@mock.patch('__builtin__.open', )
 @mock.patch('core.sit_puglia_utils.requests')
-def test_download_and_save_response_not_ok(mocked_requests, mocked_open):
+def test_download_and_save_response_not_ok(mocked_requests):
     mocked_requests.get.return_value = mock.MagicMock(ok=False)
-    download_and_save(TEST_FILE_URL)
-    mocked_requests.get.assert_called_once_with(TEST_FILE_URL, stream=True)
-    download_and_save('test')
-    assert not mocked_open.called
+    m = mock.mock_open()
+    with mock.patch('__builtin__.open', m, create=True):
+        download_and_save(TEST_FILE_URL)
+        mocked_requests.get.assert_called_once_with(TEST_FILE_URL, stream=True)
+        assert not m.called
