@@ -7,6 +7,7 @@ from core.sit_puglia_utils import build_url, download_and_save
 TEST_URLS = {'test': '{foglio}-{filename}'}
 
 TEST_FILE_URL = 'www.test.com/test.zip'
+TEST_FILENAME = './downloads/test.zip'
 
 @pytest.mark.parametrize(('tavoletta', 'expected_result'), [
     (10, '1-1101'),
@@ -30,9 +31,9 @@ def test_download_and_save_response_ok(mocked_requests, ):
     mocked_requests.get.return_value = mock.MagicMock(ok=True)
     m = mock.mock_open()
     with mock.patch('__builtin__.open', m, create=True):
-        download_and_save(TEST_FILE_URL)
+        assert download_and_save(TEST_FILE_URL) == TEST_FILENAME
         mocked_requests.get.assert_called_once_with(TEST_FILE_URL, stream=True)
-        m.assert_called_once_with('./downloads/test.zip', "wb")
+        m.assert_called_once_with(TEST_FILENAME, "wb")
 
 
 @mock.patch('core.sit_puglia_utils.requests')
@@ -40,6 +41,6 @@ def test_download_and_save_response_not_ok(mocked_requests):
     mocked_requests.get.return_value = mock.MagicMock(ok=False)
     m = mock.mock_open()
     with mock.patch('__builtin__.open', m, create=True):
-        download_and_save(TEST_FILE_URL)
+        assert download_and_save(TEST_FILE_URL) is None
         mocked_requests.get.assert_called_once_with(TEST_FILE_URL, stream=True)
         assert not m.called
