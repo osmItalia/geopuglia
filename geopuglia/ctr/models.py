@@ -1,5 +1,7 @@
 from django.contrib.gis.db import models
 
+from model_utils.models import TimeStampedModel
+
 GEOMETRY_TYPE_CHOICES = (
     ('POINT', 'POINT'),
     ('LINE', 'LINE'),
@@ -7,11 +9,10 @@ GEOMETRY_TYPE_CHOICES = (
 )
 
 
-class Layer(models.Model):
+class Layer(TimeStampedModel):
     code = models.CharField(max_length=10, unique=True)
     description = models.CharField(max_length=255)
     geometry_type = models.CharField(max_length=7, choices=GEOMETRY_TYPE_CHOICES)
-    timestamp = models.DateTimeField(auto_now_add=True)
     objects = models.GeoManager()
 
     def __unicode__(self):

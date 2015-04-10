@@ -27,6 +27,7 @@ class Common(Configuration):
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.admin',
+        'django.contrib.gis',
     )
     THIRD_PARTY_APPS = (
     )
@@ -91,7 +92,7 @@ class Common(Configuration):
 
     # DATABASE CONFIGURATION
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-    DATABASES = values.DatabaseURLValue('postgres://geopuglia:geopuglia@localhost/geopuglia')
+    DATABASES = values.DatabaseURLValue('postgis://geopuglia:password@localhost/geopuglia')
     # END DATABASE CONFIGURATION
 
     # CACHING
@@ -136,6 +137,7 @@ class Common(Configuration):
         'django.core.context_processors.i18n',
         'django.core.context_processors.media',
         'django.core.context_processors.static',
+        'django.contrib.auth.context_processors.auth',
         'django.core.context_processors.tz',
         'django.contrib.messages.context_processors.messages',
         'django.core.context_processors.request',

@@ -1,5 +1,7 @@
 Django==1.8
 git+git://github.com/jezdez/django-configurations.git
+dj-database-url==0.3.0
+django-model-utils==2.2
 psycopg2==2.6
 requests==2.6.0
 eventlet==0.16.1
