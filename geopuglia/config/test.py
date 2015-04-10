@@ -27,3 +27,4 @@ class Test(Common):
     EMAIL_BACKEND = values.Value('django.core.mail.backends.console.EmailBackend')
     # End mail settings
 
+
