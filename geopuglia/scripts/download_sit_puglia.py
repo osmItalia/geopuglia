@@ -1,13 +1,14 @@
 #!/bin/python
 # -*- coding: utf-8 -*-
+from Queue import Queue
 
 import argparse
 import logging
-from urllib2 import urlopen, HTTPError
-from threading import Thread
-from Queue import Queue
-from functools import wraps
-from socket import error as SocketError
+import os
+import errno
+import eventlet
+import requests
+
 
 log = logging.getLogger('CTR Downloader')
 
@@ -103,36 +104,35 @@ def build_url(download_type, foglio, tavoletta, quadrante):
     log.debug('URL created: {url}'.format(url=url))
     return url
 
-def run_async(func):
-    @wraps(func)
-    def wrap(queue, *args, **kwargs):
-        queue.put(func(*args, **kwargs))
 
-    def call(*args, **kwargs):
-        queue = Queue()
-        job = Thread(target=wrap, args=(queue, ) + args, kwargs=kwargs)
-        job.start()
-        return queue
-
-    return call
-
-#@run_async
 def download_and_save(url):
-    """
-    Saving file is a I/O blocking operation and I can't get it to work with threads and queues
-    Investigate select module before uncommenting the decorator, it'll be slow for time being
-    """
     try:
-        data = urlopen(url)
-        log.debug('{url} found'.format(url=url))
-        filename = url.split('/')[-1]
-        with open(filename, "wb") as filename:
-            filename.write(data.read())
-            log.info("{filename} saved".format(filename=filename))
-    except HTTPError:
-        log.debug('{url} not found'.format(url=url))
-    except SocketError:
-        log.debug('{url} socket error'.format(url=url))
+        response = requests.get(url, stream=True)
+        if response.ok:
+            log.debug('{url} found'.format(url=url))
+            filename = os.path.join('./downloads', url.split('/')[-1])
+            with open(filename, "wb") as f:
+                for chunk in response.iter_content(chunk_size=1024):
+                    if chunk: # filter out keep-alive new chunks
+                        f.write(chunk)
+                        f.flush()
+                        os.fsync(f.fileno())
+                return filename
+        else:
+            log.debug('{url} not found'.format(url=url))
+    except requests.Timeout:
+        log.debug('{url} timed out'.format(url=url))
+    except requests.ConnectionError:
+        log.debug('{url} connection error'.format(url=url))
+    return
+
+
+def make_sure_path_exists(path):
+    try:
+        os.makedirs(path)
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise
 
 
 def get_args():
@@ -155,7 +155,12 @@ def main(download, fogli, tavolette, quadranti):
                 for tavoletta in tavolette
                 for quadrante in quadranti])
 
-    map(download_and_save, urls)
+    make_sure_path_exists('./downloads')
+    pool = eventlet.GreenPool()
+    for filename in pool.imap(download_and_save, urls):
+        if filename:
+            log.info("{filename} saved".format(filename=filename))
+
 
 if __name__ == '__main__':
     args = get_args()

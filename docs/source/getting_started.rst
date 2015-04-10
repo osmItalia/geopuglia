@@ -24,7 +24,11 @@ First steps
 Download the data
 -----------------
 
-.. note:: The download script uses the Python standard library and it can be used outside of the Vagrant virtual machine. If you're only interested in downloading the data clone the repository only.
+.. note:: The download script depends on requests and eventlet. The vagrant machine contains all the necessary dependencies, but if you wish to use it outside the vagrant box, please install the two external libraries on your system using the command below.
+
+.. code-block:: bash
+
+    pip install --user requests==2.6.0 eventlet==0.16.1
 
 The following command will download all the shape files containing the CTR. Use -h for more options.
 
