@@ -15,11 +15,11 @@ from os.path import join, dirname
 
 from configurations import Configuration, values
 
+
 BASE_DIR = dirname(dirname(__file__))
 
 
 class Common(Configuration):
-
     # APP CONFIGURATION
     DJANGO_APPS = (
         # Default Django apps:
@@ -33,8 +33,9 @@ class Common(Configuration):
 
     # Apps specific for this project go here.
     LOCAL_APPS = (
-       'ctr',
-       'storico',
+        'core',
+        'ctr',
+        'storico',
     )
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -63,7 +64,7 @@ class Common(Configuration):
     # SECRET CONFIGURATION
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
     # Note: This key only used for development and testing.
-    #       In production, this is changed to a values.SecretValue() setting
+    # In production, this is changed to a values.SecretValue() setting
     SECRET_KEY = 'CHANGEME'
     # END SECRET CONFIGURATION
 
@@ -225,4 +226,4 @@ class Common(Configuration):
     def post_setup(cls):
         cls.DATABASES['default']['ATOMIC_REQUESTS'] = True
 
-    # Your common stuff: Below this line define 3rd party library settings
+        # Your common stuff: Below this line define 3rd party library settings
