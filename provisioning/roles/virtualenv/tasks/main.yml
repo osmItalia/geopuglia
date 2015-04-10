@@ -6,3 +6,7 @@
 - name: Alter bashrc to automatically enter virtualenv at login
   sudo: false
   shell: echo "source {{virtualenv_binaries}}/activate" >> /home/vagrant/.bashrc
+
+- name: Go to the project home if ssh into vagrant
+  sudo: false
+  shell: echo "cd {{project_folder}}" >> /home/vagrant/.bashrc
